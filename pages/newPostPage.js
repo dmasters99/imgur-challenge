@@ -1,12 +1,12 @@
 let elements = {
     uploadNotice: {
-      selector: '#upload-notice-container'
+        selector: '#upload-notice-container'
     },
-    image: {
-      selector: '.image.post-image',
+    newImage: {
+        selector: '.image.post-image',
     }
 }
 
 module.exports = {
-  elements: elements,
+    elements: elements,
 };

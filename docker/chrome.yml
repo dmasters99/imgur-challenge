@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  nightwatch_chrome:
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+    depends_on: 
+      - chrome
+    volumes:
+    - ../output:/app/output
+    environment:
+      - TEST_ENV=dockerChrome
+  chrome:
+    image: selenium/standalone-chrome:3.141.59-mercury
+    volumes:
+      - /dev/shm:/dev/shm
+      - ../assets:/app/assets
+    logging:
+      driver: none

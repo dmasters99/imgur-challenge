@@ -1,9 +1,9 @@
 let elements = {
     description: {
-      selector: '.post .hover p'
+        selector: '.post .hover p'
     },
 }
 
 module.exports = {
-  elements: elements,
+    elements: elements,
 };

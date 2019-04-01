@@ -38,25 +38,7 @@ exports.assertion = function (selector, text, count) {
   }
   
   // Return the innerText values of all elements matching the selector
-  this.command = callback => {
-    const self = this
-    this.api.execute(
-      function(selector) { // execute application specific code inside the actual browser's DOM
-
-        elementVals = []
-        document.querySelectorAll(selector).forEach(node => {
-          elementVals.push(node.innerText)
-        })
-        return elementVals;
-      },
-
-      [selector], // arguments array to be passed
-
-      function(result) {
-        if (typeof callback === "function") {
-          callback.call(self, result);
-        }
-      }
-    );
-  }
+  this.command = function(callback) {
+    return this.api.getElementsText(selector, callback);
+  };
 }

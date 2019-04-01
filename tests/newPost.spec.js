@@ -1,18 +1,20 @@
 module.exports = {
 
-  'New Upload' : function (client) {
+    'New Upload': function(client) {
 
-    var homePage = client.page.homePage();
-    homePage.navigate();
-    homePage.createNewPost();
+        // Navigate to upload page
+        var homePage = client.page.homePage();
+        homePage.navigate();
+        homePage.createNewPost();
 
-    var uploadPage = client.page.uploadPage();
-    uploadPage.uploadTestImage();
+        // Upload test image from the assets directory
+        var uploadPage = client.page.uploadPage();
+        uploadPage.uploadTestImage();
 
-    var newPostPage = client.page.newPostPage();
-    newPostPage.expect.element('@uploadNotice').text.to.contain('Upload complete').before(5000)
+        // Verify that a successful notification appears and that the image div is visible
+        var newPostPage = client.page.newPostPage();
+        newPostPage.expect.element('@uploadNotice').text.to.contain('Upload complete').before(5000)
+        newPostPage.assert.visible('@newImage')
 
-    client.end();
-
-  }
+    }
 };

@@ -1,0 +1,20 @@
+version: "3"
+
+services:
+  nightwatch_firefox:
+    build:
+      context: ../
+      dockerfile: ./docker/Dockerfile
+    depends_on: 
+      - firefox
+    volumes:
+    - ../output:/app/output
+    environment:
+      - TEST_ENV=dockerFirefox
+  firefox:
+    image: selenium/standalone-firefox:3.141.59-mercury
+    volumes:
+      - /dev/shm:/dev/shm
+      - ../assets:/app/assets
+    logging:
+      driver: none

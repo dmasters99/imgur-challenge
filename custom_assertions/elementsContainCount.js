@@ -14,31 +14,31 @@
  * @api assertions
  */
 
-exports.assertion = function (selector, text, count) {
+exports.assertion = function(selector, text, count) {
   this.message = `Testing if at least ${count} elements of class "${selector}" contain text "${text}"`;
 
   this.expected = count;
-  
+
   // If count is equal to or exceeds expected amount, this assertion succeeds
-  this.pass = function (val) {
-    this.message += ` (Found: ${val})`
-    return val => this.expected;
-  }
-  
-  // Count the number of innerText values that contain the expected text 
-  this.value = function (res) {
+  this.pass = function(val) {
+    this.message += ` (Found: ${val})`;
+    return (val) => this.expected;
+  };
+
+  // Count the number of innerText values that contain the expected text
+  this.value = function(res) {
     let count = 0;
-    res.value.forEach(function(innerText){
+    res.value.forEach(function(innerText) {
       if (innerText.includes(text)) {
         count++;
       }
-    })
+    });
 
     return count;
-  }
-  
+  };
+
   // Return the innerText values of all elements matching the selector
   this.command = function(callback) {
     return this.api.getElementsText(selector, callback);
   };
-}
+};

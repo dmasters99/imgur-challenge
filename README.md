@@ -19,7 +19,7 @@ npm run test-chrome
 npm run test-firefox
 ```
 
-The results will show up in your `outputs/test_results` folder.  Screenshots of any failed tests will be recorded in the `outputs/screenshots` directory.
+The results will show up in your `output/test_results` folder.  Screenshots of any failed tests will be recorded in the `output/screenshots` directory.
 
 ### Docker Implementation
 

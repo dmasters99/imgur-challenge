@@ -54,7 +54,7 @@ For this test, we start on the home page and navigate to the upload page.  We up
 
 The challenge here was how to best verify that the search results match our query.  I decided to create a search term `car` (configurable in `lib/globalsModule.js`) to be sure I can expect a sufficient amount of results.  Once the search is executed, the results page will contain a header such as `Found 55,042 results for car`.  However, simply looking at the header does not seem adequate for this test.
 
-Each post in the results will show the title of the post when a mouse is hovered over it.  We can use the text of this element to verify that the subject matter matches our search.  If the word `car` is found in at least 10 posts, we will deem this test successful.
+Each image in the results will show the title of the post when a mouse is hovered over it.  We can use the text of this element to verify that the subject matter matches our search.  If the word `car` is found in each post, and there are at least 10 matching posts, it will be considered a success.
 
 There is no native `nightwatch` method which returns an array of `innerText` attributes for all elements on a page which match a given `selector`.  I used a [custom command](http://nightwatchjs.org/guide#extending) to create this functionality for our test, which can be located at `custom_commands/getElementsText.js`.
 

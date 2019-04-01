@@ -7,6 +7,6 @@ module.exports = {
 
     const searchResultsPage = client.page.searchResultsPage();
     searchResultsPage.assert.elementsContainCount(searchResultsPage.elements.description.selector,
-        client.globals.searchTerm, 5);
+        client.globals.searchTerm, 10);
   },
 };

@@ -1,6 +1,6 @@
 /**
- * Checks if the number of elements matching a selector and contain specific test meet or exceed the expected amount.
- *
+ * Checks if all of the elements matching a selector contain specific text, and that the count
+ * of such elements meet or exceed the minimum expected amount.
  * ```
  *    this.demoTest = function (client) {
  *      client.assert.elementsContainCount('@someSelector', 'sample text'  10);
@@ -15,30 +15,37 @@
  */
 
 exports.assertion = function(selector, text, count) {
-  this.message = `Testing if at least ${count} elements of class "${selector}" contain text "${text}"`;
+    this.message = `Testing if all elements of class "${selector}" contain text "${text}" and that at least ${count} exist`;
 
-  this.expected = count;
+    this.expected = count;
 
-  // If count is equal to or exceeds expected amount, this assertion succeeds
-  this.pass = function(val) {
-    this.message += ` (Found: ${val})`;
-    return (val) => this.expected;
-  };
+    /* If count of included is equal to or exceeds expected amount,
+    and count excluded equals 0 this assertion succeeds */
+    this.pass = function(val) {
+        this.message += ` (Found: ${val.countInclude})`;
+        return val.countInclude >= this.expected && val.countExclude === 0;
+    };
 
-  // Count the number of innerText values that contain the expected text
-  this.value = function(res) {
-    let count = 0;
-    res.value.forEach(function(innerText) {
-      if (innerText.includes(text)) {
-        count++;
-      }
-    });
+    // Count the number of innerText values that contain the expected text
+    this.value = function(res) {
+        let countInclude = 0;
+        let countExclude = 0;
+        res.value.forEach(function(innerText) {
+            if (innerText.toUpperCase().includes(text.toUpperCase())) {
+                countInclude++;
+            } else {
+                countExclude++;
+            }
+        });
 
-    return count;
-  };
+        return {
+            'countInclude': countInclude,
+            'countExclude': countExclude
+        };
+    };
 
-  // Return the innerText values of all elements matching the selector
-  this.command = function(callback) {
-    return this.api.getElementsText(selector, callback);
-  };
+    // Return the innerText values of all elements matching the selector
+    this.command = function(callback) {
+        return this.api.getElementsText(selector, callback);
+    };
 };
